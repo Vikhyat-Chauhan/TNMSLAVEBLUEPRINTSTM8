@@ -2,10 +2,9 @@
 [WorkState_v1_2]
 ptn_Child1=DockState
 ptn_Child2=ToolBarMgr
-ptn_Child3=Frames
 
 [WorkState_v1_2.DockState]
-Bars=33
+Bars=35
 ScreenCX=2560
 ScreenCY=1080
 ptn_Child1=Bar-0
@@ -41,10 +40,12 @@ ptn_Child30=Bar-29
 ptn_Child31=Bar-30
 ptn_Child32=Bar-31
 ptn_Child33=Bar-32
+ptn_Child34=Bar-33
+ptn_Child35=Bar-34
 
 [WorkState_v1_2.DockState.Bar-0]
 BarID=59419
-Bars=56
+Bars=55
 Bar#0=0
 Bar#1=59647
 Bar#2=0
@@ -62,8 +63,8 @@ Bar#13=59401
 Bar#14=124933
 Bar#15=124938
 Bar#16=0
-Bar#17=32768
-Bar#18=0
+Bar#17=0
+Bar#18=32768
 Bar#19=0
 Bar#20=0
 Bar#21=0
@@ -100,7 +101,6 @@ Bar#51=0
 Bar#52=0
 Bar#53=0
 Bar#54=0
-Bar#55=0
 Style=0
 ExStyle=0
 PrevFloating=False
@@ -159,16 +159,20 @@ ResourceID=0
 
 [WorkState_v1_2.DockState.Bar-2]
 BarID=59422
-Bars=9
+Bars=13
 Bar#0=0
-Bar#1=5707
-Bar#2=5706
-Bar#3=5710
-Bar#4=5704
-Bar#5=5721
-Bar#6=0
-Bar#7=32769
-Bar#8=0
+Bar#1=0
+Bar#2=8003
+Bar#3=8002
+Bar#4=0
+Bar#5=5707
+Bar#6=5706
+Bar#7=5710
+Bar#8=5704
+Bar#9=5721
+Bar#10=0
+Bar#11=32769
+Bar#12=0
 Style=0
 ExStyle=0
 PrevFloating=False
@@ -363,7 +367,7 @@ ResourceID=0
 
 [WorkState_v1_2.DockState.Bar-8]
 BarID=59647
-MRUWidth=291
+MRUWidth=412
 Docking=True
 MRUDockID=59419
 MRUDockLeftPos=8
@@ -381,12 +385,12 @@ AutoHide=False
 AutoHidePinned=False
 LastAlignedDocking=0
 PctWidth=1000000
-MRUFloatCX=308
-MRUFloatCY=50
+MRUFloatCX=429
+MRUFloatCY=27
 MRUHorzDockCX=1544
 MRUHorzDockCY=29
-MRUVertDockCX=76
-MRUVertDockCY=673
+MRUVertDockCX=72
+MRUVertDockCY=527
 MRUDockingState=0
 DockingStyle=61440
 TypeID=14947
@@ -439,14 +443,14 @@ Buttons=AABOAAAAAAGPDBAAAAAAAIIBAAAAAAAAAAAAAAAADABOAAAAAAAAAAAAAAAAHABOAAAAAA
 
 [WorkState_v1_2.DockState.Bar-10]
 BarID=59396
-XPos=294
+XPos=340
 YPos=28
 MRUWidth=566
 Docking=True
 MRUDockID=59419
-MRUDockLeftPos=294
+MRUDockLeftPos=340
 MRUDockTopPos=31
-MRUDockRightPos=877
+MRUDockRightPos=923
 MRUDockBottomPos=61
 MRUFloatStyle=8196
 MRUFloatXPos=-1
@@ -515,18 +519,18 @@ ptn_Child1=ToolBarInfoEx
 
 [WorkState_v1_2.DockState.Bar-11.ToolBarInfoEx]
 Title=View
-Buttons=IFGBAAAAAAJFGBAAAAAAAAAAAAAAAAFEGBAAAAAAIEGBAAAAAAMBJIAAAAAAMEGBAAAAAAAAAAAAAAAAOEGBAAAAAAKEGBAAAAAALEGBAAAAAAPEGBAAAAAA
+Buttons=IFGBAAAAAAJFGBAAAAAAAAAAAAAAAAFEGBAAAAAACEPBAAAAAAMBJIAAAAAAMEGBAAAAAAAAAAAAAAAAOEGBAAAAAAKEGBAAAAAALEGBAAAAAAPEGBAAAAAADEPBAAAAAA
 
 [WorkState_v1_2.DockState.Bar-12]
 BarID=59398
-XPos=569
+XPos=759
 YPos=58
 MRUWidth=339
 Docking=True
 MRUDockID=59419
-MRUDockLeftPos=569
+MRUDockLeftPos=759
 MRUDockTopPos=58
-MRUDockRightPos=925
+MRUDockRightPos=1115
 MRUDockBottomPos=88
 MRUFloatStyle=8196
 MRUFloatXPos=-1
@@ -559,7 +563,7 @@ Buttons=KAAIAAAACAEGAAMAAIAAAACAEGAAAAAAAAAAAABBAIAAAAAACBAIAAAAAADBAIAAAAAAAAAA
 
 [WorkState_v1_2.DockState.Bar-13]
 BarID=59399
-XPos=0
+XPos=3
 YPos=58
 MRUWidth=385
 Docking=True
@@ -584,7 +588,7 @@ MRUFloatCY=30
 MRUHorzDockCX=402
 MRUHorzDockCY=30
 MRUVertDockCX=31
-MRUVertDockCY=372
+MRUVertDockCY=387
 MRUDockingState=0
 DockingStyle=61440
 TypeID=14946
@@ -599,14 +603,14 @@ Buttons=HKAIAAAAAAIKAIAAAAAAAAAAAAAAAAADKBAAAAAAAAAAAAAAAAGPKBAAAAAAEPKBAAAAAAFP
 
 [WorkState_v1_2.DockState.Bar-14]
 BarID=59400
-XPos=885
+XPos=960
 YPos=28
 MRUWidth=23
 Docking=True
 MRUDockID=59419
-MRUDockLeftPos=885
+MRUDockLeftPos=960
 MRUDockTopPos=28
-MRUDockRightPos=925
+MRUDockRightPos=1092
 MRUDockBottomPos=58
 MRUFloatStyle=8196
 MRUFloatXPos=-1
@@ -621,7 +625,7 @@ LastAlignedDocking=0
 PctWidth=184352
 MRUFloatCX=40
 MRUFloatCY=30
-MRUHorzDockCX=40
+MRUHorzDockCX=132
 MRUHorzDockCY=30
 MRUVertDockCX=31
 MRUVertDockCY=39
@@ -635,18 +639,18 @@ ptn_Child1=ToolBarInfoEx
 
 [WorkState_v1_2.DockState.Bar-14.ToolBarInfoEx]
 Title=Debug instrument
-Buttons=JPAIAAAAAA
+Buttons=JPAIAAAAAAAFPBAAAAAANEPBAAAAAABFPBAAAAAACFPBAAAAAA
 
 [WorkState_v1_2.DockState.Bar-15]
 BarID=59401
-XPos=925
+XPos=1115
 YPos=58
 MRUWidth=77
 Docking=True
 MRUDockID=59419
-MRUDockLeftPos=925
+MRUDockLeftPos=1115
 MRUDockTopPos=58
-MRUDockRightPos=996
+MRUDockRightPos=1186
 MRUDockBottomPos=88
 MRUFloatStyle=8196
 MRUFloatXPos=-1
@@ -763,10 +767,10 @@ XPos=1
 YPos=-2
 Docking=True
 MRUDockID=0
-MRUDockLeftPos=8
-MRUDockTopPos=31
-MRUDockRightPos=158
-MRUDockBottomPos=706
+MRUDockLeftPos=1
+MRUDockTopPos=-2
+MRUDockRightPos=151
+MRUDockBottomPos=673
 MRUFloatStyle=4
 MRUFloatXPos=-1
 MRUFloatYPos=0
@@ -793,11 +797,11 @@ ResourceID=0
 
 [WorkState_v1_2.DockState.Bar-19]
 BarID=5721
-XPos=1
+XPos=1032
 YPos=5
 Docking=True
 MRUDockID=0
-MRUDockLeftPos=1
+MRUDockLeftPos=1032
 MRUDockTopPos=5
 MRUDockRightPos=1544
 MRUDockBottomPos=155
@@ -811,10 +815,10 @@ MDIChild=False
 AutoHide=False
 AutoHidePinned=False
 LastAlignedDocking=0
-PctWidth=1000000
+PctWidth=333334
 MRUFloatCX=300
 MRUFloatCY=180
-MRUHorzDockCX=1543
+MRUHorzDockCX=512
 MRUHorzDockCY=150
 MRUVertDockCX=300
 MRUVertDockCY=180
@@ -827,15 +831,14 @@ ResourceID=0
 
 [WorkState_v1_2.DockState.Bar-20]
 BarID=5701
-Visible=False
-XPos=0
-YPos=0
+XPos=5
+YPos=-2
 Docking=True
 MRUDockID=0
 MRUDockLeftPos=8
 MRUDockTopPos=31
-MRUDockRightPos=8
-MRUDockBottomPos=31
+MRUDockRightPos=335
+MRUDockBottomPos=706
 MRUFloatStyle=4
 MRUFloatXPos=-1
 MRUFloatYPos=0
@@ -851,8 +854,8 @@ MRUFloatCX=300
 MRUFloatCY=180
 MRUHorzDockCX=300
 MRUHorzDockCY=180
-MRUVertDockCX=150
-MRUVertDockCY=180
+MRUVertDockCX=327
+MRUVertDockCY=675
 MRUDockingState=0
 DockingStyle=61440
 TypeID=0
@@ -898,14 +901,14 @@ ResourceID=0
 [WorkState_v1_2.DockState.Bar-22]
 BarID=35100
 Visible=False
-XPos=0
-YPos=0
+XPos=339
+YPos=-2
 Docking=True
 MRUDockID=0
-MRUDockLeftPos=8
+MRUDockLeftPos=339
 MRUDockTopPos=31
-MRUDockRightPos=8
-MRUDockBottomPos=31
+MRUDockRightPos=489
+MRUDockBottomPos=706
 MRUFloatStyle=4
 MRUFloatXPos=-2147483648
 MRUFloatYPos=0
@@ -922,7 +925,7 @@ MRUFloatCY=180
 MRUHorzDockCX=300
 MRUHorzDockCY=180
 MRUVertDockCX=150
-MRUVertDockCY=180
+MRUVertDockCY=675
 MRUDockingState=0
 DockingStyle=61440
 TypeID=0
@@ -1072,15 +1075,14 @@ ResourceID=0
 
 [WorkState_v1_2.DockState.Bar-27]
 BarID=5710
-Visible=False
-XPos=0
-YPos=0
+XPos=1
+YPos=5
 Docking=True
 MRUDockID=0
-MRUDockLeftPos=8
-MRUDockTopPos=31
-MRUDockRightPos=8
-MRUDockBottomPos=31
+MRUDockLeftPos=1
+MRUDockTopPos=5
+MRUDockRightPos=1026
+MRUDockBottomPos=155
 MRUFloatStyle=4
 MRUFloatXPos=-1
 MRUFloatYPos=0
@@ -1094,7 +1096,7 @@ LastAlignedDocking=0
 PctWidth=666665
 MRUFloatCX=300
 MRUFloatCY=180
-MRUHorzDockCX=300
+MRUHorzDockCX=1025
 MRUHorzDockCY=150
 MRUVertDockCX=300
 MRUVertDockCY=180
@@ -1176,6 +1178,76 @@ WindowName=Local Variables
 ResourceID=0
 
 [WorkState_v1_2.DockState.Bar-30]
+BarID=8002
+Visible=False
+XPos=0
+YPos=0
+Docking=True
+MRUDockID=0
+MRUDockLeftPos=8
+MRUDockTopPos=31
+MRUDockRightPos=7864343
+MRUDockBottomPos=465191
+MRUFloatStyle=4
+MRUFloatXPos=-1
+MRUFloatYPos=1084
+Style=36740
+ExStyle=69393
+PrevFloating=False
+MDIChild=False
+AutoHide=False
+AutoHidePinned=False
+LastAlignedDocking=0
+PctWidth=666665
+MRUFloatCX=300
+MRUFloatCY=180
+MRUHorzDockCX=300
+MRUHorzDockCY=150
+MRUVertDockCX=300
+MRUVertDockCY=180
+MRUDockingState=0
+DockingStyle=61440
+TypeID=0
+ClassName=CAddedControlBar
+WindowName=Core Registers
+ResourceID=0
+
+[WorkState_v1_2.DockState.Bar-31]
+BarID=8003
+Visible=False
+XPos=0
+YPos=0
+Docking=True
+MRUDockID=0
+MRUDockLeftPos=8
+MRUDockTopPos=31
+MRUDockRightPos=8
+MRUDockBottomPos=31
+MRUFloatStyle=4
+MRUFloatXPos=-1
+MRUFloatYPos=0
+Style=36740
+ExStyle=69393
+PrevFloating=False
+MDIChild=False
+AutoHide=False
+AutoHidePinned=False
+LastAlignedDocking=0
+PctWidth=750000
+MRUFloatCX=300
+MRUFloatCY=180
+MRUHorzDockCX=300
+MRUHorzDockCY=150
+MRUVertDockCX=300
+MRUVertDockCY=180
+MRUDockingState=0
+DockingStyle=61440
+TypeID=0
+ClassName=CAddedControlBar
+WindowName=Peripheral Registers
+ResourceID=0
+
+[WorkState_v1_2.DockState.Bar-32]
 BarID=59423
 Horz=True
 Floating=True
@@ -1206,7 +1278,7 @@ ClassName=
 WindowName=
 ResourceID=0
 
-[WorkState_v1_2.DockState.Bar-31]
+[WorkState_v1_2.DockState.Bar-33]
 BarID=59423
 Horz=True
 Floating=True
@@ -1237,7 +1309,7 @@ ClassName=
 WindowName=
 ResourceID=0
 
-[WorkState_v1_2.DockState.Bar-32]
+[WorkState_v1_2.DockState.Bar-34]
 BarID=59423
 Horz=True
 Floating=True
@@ -1272,37 +1344,3 @@ ResourceID=0
 ToolTips=True
 CoolLook=True
 LargeButtons=False
-
-[WorkState_v1_2.Frames]
-ptn_Child1=MainFrame
-ptn_Child2=ChildFrames
-
-[WorkState_v1_2.Frames.MainFrame]
-WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPKPPPPPPPCAAAAAAACBGAAAAAENDAAAAA
-Title=ST Visual Develop - TNMSLAVEBLUEPRINTSTM8.stw - [main.c]
-
-[WorkState_v1_2.Frames.ChildFrames]
-ptn_Child1=Document-0
-ptn_Child2=Document-1
-
-[WorkState_v1_2.Frames.ChildFrames.Document-0]
-ptn_Child1=ViewFrame-0
-
-[WorkState_v1_2.Frames.ChildFrames.Document-0.ViewFrame-0]
-DocPathName=main.c
-DocumentString=
-DocTemplateIndex=0
-WindowPlacement=MCAAAAAACAAAAAAADAAAAAAAPPPPPPPPPPPPPPPPIPPPPPPPBOPPPPPPAAAAAAAAAAAAAAAAKHCAAAAAENAAAAAA
-IsActiveChildFrame=True
-IsFrameVisible=True
-
-[WorkState_v1_2.Frames.ChildFrames.Document-1]
-ptn_Child1=ViewFrame-0
-
-[WorkState_v1_2.Frames.ChildFrames.Document-1.ViewFrame-0]
-DocPathName=..\..\..\desktop\stm8s103f3_spl-master\stm8s103f3_spl-master\src\stm8s_gpio.c
-DocumentString=
-DocTemplateIndex=0
-WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPIPPPPPPPBOPPPPPPKBAAAAAAKBAAAAAAMEDAAAAANLBAAAAA
-IsActiveChildFrame=False
-IsFrameVisible=True

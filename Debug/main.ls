@@ -1,269 +1,295 @@
    1                     ; C Compiler for STM8 (COSMIC Software)
    2                     ; Parser V4.12.5 - 16 Jun 2021
    3                     ; Generator (Limited) V4.5.3 - 16 Jun 2021
-  14                     	bsct
-  15  0000               _switch_state:
-  16  0000 00            	dc.b	0
-  75                     ; 13 void delay_ms (int ms) //Function Definition 
-  75                     ; 14 {
-  77                     	switch	.text
-  78  0000               _delay_ms:
-  80  0000 89            	pushw	x
-  81  0001 5204          	subw	sp,#4
-  82       00000004      OFST:	set	4
-  85                     ; 15 	int i =0 ;
-  87                     ; 16 	int j=0;
-  89                     ; 17 	for (i=0; i<=ms; i++)
-  91  0003 5f            	clrw	x
-  92  0004 1f01          	ldw	(OFST-3,sp),x
-  95  0006 201a          	jra	L34
-  96  0008               L73:
-  97                     ; 19 		for (j=0; j<120; j++) // Nop = Fosc/4
-  99  0008 5f            	clrw	x
- 100  0009 1f03          	ldw	(OFST-1,sp),x
- 102  000b               L74:
- 103                     ; 20 		_asm("nop"); //Perform no operation //assembly code <span style="white-space:pre"> </span>
- 106  000b 9d            nop
- 108                     ; 19 		for (j=0; j<120; j++) // Nop = Fosc/4
- 110  000c 1e03          	ldw	x,(OFST-1,sp)
- 111  000e 1c0001        	addw	x,#1
- 112  0011 1f03          	ldw	(OFST-1,sp),x
- 116  0013 9c            	rvf
- 117  0014 1e03          	ldw	x,(OFST-1,sp)
- 118  0016 a30078        	cpw	x,#120
- 119  0019 2ff0          	jrslt	L74
- 120                     ; 17 	for (i=0; i<=ms; i++)
- 122  001b 1e01          	ldw	x,(OFST-3,sp)
- 123  001d 1c0001        	addw	x,#1
- 124  0020 1f01          	ldw	(OFST-3,sp),x
- 126  0022               L34:
- 129  0022 9c            	rvf
- 130  0023 1e01          	ldw	x,(OFST-3,sp)
- 131  0025 1305          	cpw	x,(OFST+1,sp)
- 132  0027 2ddf          	jrsle	L73
- 133                     ; 22 }
- 136  0029 5b06          	addw	sp,#6
- 137  002b 81            	ret
- 176                     ; 24 void Write_Flash(unsigned char value){
- 177                     	switch	.text
- 178  002c               _Write_Flash:
- 180  002c 88            	push	a
- 181       00000000      OFST:	set	0
- 184                     ; 25 	FLASH_Unlock(FLASH_MEMTYPE_DATA);
- 186  002d a6f7          	ld	a,#247
- 187  002f cd0000        	call	_FLASH_Unlock
- 189                     ; 26 	FLASH_EraseByte(0x4000);
- 191  0032 ae4000        	ldw	x,#16384
- 192  0035 89            	pushw	x
- 193  0036 ae0000        	ldw	x,#0
- 194  0039 89            	pushw	x
- 195  003a cd0000        	call	_FLASH_EraseByte
- 197  003d 5b04          	addw	sp,#4
- 198                     ; 27 	delay_ms(20);
- 200  003f ae0014        	ldw	x,#20
- 201  0042 adbc          	call	_delay_ms
- 203                     ; 28 	FLASH_ProgramByte(0x4000, value);
- 205  0044 7b01          	ld	a,(OFST+1,sp)
- 206  0046 88            	push	a
- 207  0047 ae4000        	ldw	x,#16384
- 208  004a 89            	pushw	x
- 209  004b ae0000        	ldw	x,#0
- 210  004e 89            	pushw	x
- 211  004f cd0000        	call	_FLASH_ProgramByte
- 213  0052 5b05          	addw	sp,#5
- 214                     ; 29 	delay_ms(20);
- 216  0054 ae0014        	ldw	x,#20
- 217  0057 ada7          	call	_delay_ms
- 219                     ; 30 	FLASH_Lock(FLASH_MEMTYPE_DATA);
- 221  0059 a6f7          	ld	a,#247
- 222  005b cd0000        	call	_FLASH_Lock
- 224                     ; 31 }
- 227  005e 84            	pop	a
- 228  005f 81            	ret
- 272                     ; 33 void main()
- 272                     ; 34 {
- 273                     	switch	.text
- 274  0060               _main:
- 276  0060 88            	push	a
- 277       00000001      OFST:	set	1
- 280                     ; 35 	unsigned char value = 0x21;
- 282                     ; 36 	clock_setup();
- 284  0061 ad57          	call	_clock_setup
- 286                     ; 37 	GPIO_setup();
- 288  0063 cd011b        	call	_GPIO_setup
- 290                     ; 38 	Flash_setup();
- 292  0066 cd013e        	call	_Flash_setup
- 294                     ; 40 	delay_ms(2000);
- 296  0069 ae07d0        	ldw	x,#2000
- 297  006c ad92          	call	_delay_ms
- 299                     ; 42 	switch_state = FLASH_ReadByte(0x4000);
- 301  006e ae4000        	ldw	x,#16384
- 302  0071 89            	pushw	x
- 303  0072 ae0000        	ldw	x,#0
- 304  0075 89            	pushw	x
- 305  0076 cd0000        	call	_FLASH_ReadByte
- 307  0079 5b04          	addw	sp,#4
- 308  007b b700          	ld	_switch_state,a
- 309  007d               L111:
- 310                     ; 45 		if(GPIO_ReadInputPin(Button_Port, Button_Pin) == FALSE){
- 312  007d 4b04          	push	#4
- 313  007f ae500f        	ldw	x,#20495
- 314  0082 cd0000        	call	_GPIO_ReadInputPin
- 316  0085 5b01          	addw	sp,#1
- 317  0087 4d            	tnz	a
- 318  0088 26f3          	jrne	L111
- 319                     ; 46 			if(switch_state == TRUE){
- 321  008a b600          	ld	a,_switch_state
- 322  008c a101          	cp	a,#1
- 323  008e 2610          	jrne	L711
- 324                     ; 47 				GPIO_WriteLow(Relay_Port, Relay_Pin);
- 326  0090 4b08          	push	#8
- 327  0092 ae500a        	ldw	x,#20490
- 328  0095 cd0000        	call	_GPIO_WriteLow
- 330  0098 84            	pop	a
- 331                     ; 48 				switch_state = FALSE;
- 333  0099 3f00          	clr	_switch_state
- 334                     ; 49 				Write_Flash(switch_state);
- 336  009b 4f            	clr	a
- 337  009c ad8e          	call	_Write_Flash
- 340  009e 2012          	jra	L121
- 341  00a0               L711:
- 342                     ; 52 				GPIO_WriteHigh(Relay_Port, Relay_Pin);
- 344  00a0 4b08          	push	#8
- 345  00a2 ae500a        	ldw	x,#20490
- 346  00a5 cd0000        	call	_GPIO_WriteHigh
- 348  00a8 84            	pop	a
- 349                     ; 53 				switch_state = TRUE;
- 351  00a9 35010000      	mov	_switch_state,#1
- 352                     ; 54 				Write_Flash(switch_state);
- 354  00ad a601          	ld	a,#1
- 355  00af cd002c        	call	_Write_Flash
- 357  00b2               L121:
- 358                     ; 56 			delay_ms(4000);
- 360  00b2 ae0fa0        	ldw	x,#4000
- 361  00b5 cd0000        	call	_delay_ms
- 363  00b8 20c3          	jra	L111
- 396                     ; 61 void clock_setup(void)
- 396                     ; 62 {
- 397                     	switch	.text
- 398  00ba               _clock_setup:
- 402                     ; 63 	CLK_DeInit();
- 404  00ba cd0000        	call	_CLK_DeInit
- 406                     ; 64 	CLK_HSECmd(DISABLE);
- 408  00bd 4f            	clr	a
- 409  00be cd0000        	call	_CLK_HSECmd
- 411                     ; 65 	CLK_LSICmd(DISABLE);
- 413  00c1 4f            	clr	a
- 414  00c2 cd0000        	call	_CLK_LSICmd
- 416                     ; 66 	CLK_HSICmd(ENABLE);
- 418  00c5 a601          	ld	a,#1
- 419  00c7 cd0000        	call	_CLK_HSICmd
- 422  00ca               L531:
- 423                     ; 67 	while(CLK_GetFlagStatus(CLK_FLAG_HSIRDY) == FALSE);
- 425  00ca ae0102        	ldw	x,#258
- 426  00cd cd0000        	call	_CLK_GetFlagStatus
- 428  00d0 4d            	tnz	a
- 429  00d1 27f7          	jreq	L531
- 430                     ; 68 		CLK_ClockSwitchCmd(ENABLE);
- 432  00d3 a601          	ld	a,#1
- 433  00d5 cd0000        	call	_CLK_ClockSwitchCmd
- 435                     ; 70 		CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
- 437  00d8 4f            	clr	a
- 438  00d9 cd0000        	call	_CLK_HSIPrescalerConfig
- 440                     ; 71 		CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
- 442  00dc a680          	ld	a,#128
- 443  00de cd0000        	call	_CLK_SYSCLKConfig
- 445                     ; 72 		CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, DISABLE,
- 445                     ; 73 		CLK_CURRENTCLOCKSTATE_ENABLE);
- 447  00e1 4b01          	push	#1
- 448  00e3 4b00          	push	#0
- 449  00e5 ae01e1        	ldw	x,#481
- 450  00e8 cd0000        	call	_CLK_ClockSwitchConfig
- 452  00eb 85            	popw	x
- 453                     ; 74 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_I2C, DISABLE);
- 455  00ec 5f            	clrw	x
- 456  00ed cd0000        	call	_CLK_PeripheralClockConfig
- 458                     ; 75 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_SPI, DISABLE);
- 460  00f0 ae0100        	ldw	x,#256
- 461  00f3 cd0000        	call	_CLK_PeripheralClockConfig
- 463                     ; 76 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC, DISABLE);
- 465  00f6 ae1300        	ldw	x,#4864
- 466  00f9 cd0000        	call	_CLK_PeripheralClockConfig
- 468                     ; 77 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_AWU, DISABLE);
- 470  00fc ae1200        	ldw	x,#4608
- 471  00ff cd0000        	call	_CLK_PeripheralClockConfig
- 473                     ; 78 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_UART1, DISABLE);
- 475  0102 ae0300        	ldw	x,#768
- 476  0105 cd0000        	call	_CLK_PeripheralClockConfig
- 478                     ; 79 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER1, DISABLE);
- 480  0108 ae0700        	ldw	x,#1792
- 481  010b cd0000        	call	_CLK_PeripheralClockConfig
- 483                     ; 80 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER2, DISABLE);
- 485  010e ae0500        	ldw	x,#1280
- 486  0111 cd0000        	call	_CLK_PeripheralClockConfig
- 488                     ; 81 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4, DISABLE);
- 490  0114 ae0400        	ldw	x,#1024
- 491  0117 cd0000        	call	_CLK_PeripheralClockConfig
- 493                     ; 82 	}
- 496  011a 81            	ret
- 521                     ; 84 void GPIO_setup(void)
- 521                     ; 85 {
- 522                     	switch	.text
- 523  011b               _GPIO_setup:
- 527                     ; 86 GPIO_DeInit(Button_Port);
- 529  011b ae500f        	ldw	x,#20495
- 530  011e cd0000        	call	_GPIO_DeInit
- 532                     ; 87 GPIO_DeInit(Relay_Port);
- 534  0121 ae500a        	ldw	x,#20490
- 535  0124 cd0000        	call	_GPIO_DeInit
- 537                     ; 88 GPIO_Init(Button_Port, Button_Pin, GPIO_MODE_IN_PU_NO_IT); 
- 539  0127 4b40          	push	#64
- 540  0129 4b04          	push	#4
- 541  012b ae500f        	ldw	x,#20495
- 542  012e cd0000        	call	_GPIO_Init
- 544  0131 85            	popw	x
- 545                     ; 89 GPIO_Init(Relay_Port, Relay_Pin, GPIO_MODE_OUT_PP_LOW_FAST);
- 547  0132 4be0          	push	#224
- 548  0134 4b08          	push	#8
- 549  0136 ae500a        	ldw	x,#20490
- 550  0139 cd0000        	call	_GPIO_Init
- 552  013c 85            	popw	x
- 553                     ; 90 }
- 556  013d 81            	ret
- 580                     ; 92 void Flash_setup(void)
- 580                     ; 93 {
- 581                     	switch	.text
- 582  013e               _Flash_setup:
- 586                     ; 94 FLASH_DeInit();
- 588  013e cd0000        	call	_FLASH_DeInit
- 590                     ; 95 }
- 593  0141 81            	ret
- 638                     	xdef	_main
- 639                     	xdef	_Write_Flash
- 640                     	xdef	_delay_ms
- 641                     	xdef	_Flash_setup
- 642                     	xdef	_GPIO_setup
- 643                     	xdef	_clock_setup
- 644                     	xdef	_switch_state
- 645                     	xref	_GPIO_ReadInputPin
- 646                     	xref	_GPIO_WriteLow
- 647                     	xref	_GPIO_WriteHigh
- 648                     	xref	_GPIO_Init
- 649                     	xref	_GPIO_DeInit
- 650                     	xref	_FLASH_ReadByte
- 651                     	xref	_FLASH_ProgramByte
- 652                     	xref	_FLASH_EraseByte
- 653                     	xref	_FLASH_DeInit
- 654                     	xref	_FLASH_Lock
- 655                     	xref	_FLASH_Unlock
- 656                     	xref	_CLK_GetFlagStatus
- 657                     	xref	_CLK_SYSCLKConfig
- 658                     	xref	_CLK_HSIPrescalerConfig
- 659                     	xref	_CLK_ClockSwitchConfig
- 660                     	xref	_CLK_PeripheralClockConfig
- 661                     	xref	_CLK_ClockSwitchCmd
- 662                     	xref	_CLK_LSICmd
- 663                     	xref	_CLK_HSICmd
- 664                     	xref	_CLK_HSECmd
- 665                     	xref	_CLK_DeInit
- 684                     	end
+  52                     ; 13 void clock_setup(void)
+  52                     ; 14 {
+  54                     	switch	.text
+  55  0000               _clock_setup:
+  59                     ; 15 	CLK_DeInit();
+  61  0000 cd0000        	call	_CLK_DeInit
+  63                     ; 16 	CLK_HSECmd(DISABLE);
+  65  0003 4f            	clr	a
+  66  0004 cd0000        	call	_CLK_HSECmd
+  68                     ; 17 	CLK_LSICmd(DISABLE);
+  70  0007 4f            	clr	a
+  71  0008 cd0000        	call	_CLK_LSICmd
+  73                     ; 18 	CLK_HSICmd(ENABLE);
+  75  000b a601          	ld	a,#1
+  76  000d cd0000        	call	_CLK_HSICmd
+  79  0010               L32:
+  80                     ; 19 	while(CLK_GetFlagStatus(CLK_FLAG_HSIRDY) == FALSE);
+  82  0010 ae0102        	ldw	x,#258
+  83  0013 cd0000        	call	_CLK_GetFlagStatus
+  85  0016 4d            	tnz	a
+  86  0017 27f7          	jreq	L32
+  87                     ; 20 		CLK_ClockSwitchCmd(ENABLE);
+  89  0019 a601          	ld	a,#1
+  90  001b cd0000        	call	_CLK_ClockSwitchCmd
+  92                     ; 22 		CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
+  94  001e 4f            	clr	a
+  95  001f cd0000        	call	_CLK_HSIPrescalerConfig
+  97                     ; 23 		CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+  99  0022 a680          	ld	a,#128
+ 100  0024 cd0000        	call	_CLK_SYSCLKConfig
+ 102                     ; 24 		CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, DISABLE,
+ 102                     ; 25 		CLK_CURRENTCLOCKSTATE_ENABLE);
+ 104  0027 4b01          	push	#1
+ 105  0029 4b00          	push	#0
+ 106  002b ae01e1        	ldw	x,#481
+ 107  002e cd0000        	call	_CLK_ClockSwitchConfig
+ 109  0031 85            	popw	x
+ 110                     ; 26 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_I2C, DISABLE);
+ 112  0032 5f            	clrw	x
+ 113  0033 cd0000        	call	_CLK_PeripheralClockConfig
+ 115                     ; 27 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_SPI, DISABLE);
+ 117  0036 ae0100        	ldw	x,#256
+ 118  0039 cd0000        	call	_CLK_PeripheralClockConfig
+ 120                     ; 28 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC, DISABLE);
+ 122  003c ae1300        	ldw	x,#4864
+ 123  003f cd0000        	call	_CLK_PeripheralClockConfig
+ 125                     ; 29 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_AWU, DISABLE);
+ 127  0042 ae1200        	ldw	x,#4608
+ 128  0045 cd0000        	call	_CLK_PeripheralClockConfig
+ 130                     ; 30 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_UART1, DISABLE);
+ 132  0048 ae0300        	ldw	x,#768
+ 133  004b cd0000        	call	_CLK_PeripheralClockConfig
+ 135                     ; 31 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER1, DISABLE);
+ 137  004e ae0700        	ldw	x,#1792
+ 138  0051 cd0000        	call	_CLK_PeripheralClockConfig
+ 140                     ; 32 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER2, DISABLE);
+ 142  0054 ae0500        	ldw	x,#1280
+ 143  0057 cd0000        	call	_CLK_PeripheralClockConfig
+ 145                     ; 33 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4, DISABLE);
+ 147  005a ae0400        	ldw	x,#1024
+ 148  005d cd0000        	call	_CLK_PeripheralClockConfig
+ 150                     ; 34 	}
+ 153  0060 81            	ret
+ 178                     ; 36 void gpio_setup(void)
+ 178                     ; 37 {
+ 179                     	switch	.text
+ 180  0061               _gpio_setup:
+ 184                     ; 38 	GPIO_DeInit(Button_Port);
+ 186  0061 ae500f        	ldw	x,#20495
+ 187  0064 cd0000        	call	_GPIO_DeInit
+ 189                     ; 39 	GPIO_DeInit(Relay_Port);
+ 191  0067 ae500a        	ldw	x,#20490
+ 192  006a cd0000        	call	_GPIO_DeInit
+ 194                     ; 40 	GPIO_Init(Button_Port, Button_Pin, GPIO_MODE_IN_PU_NO_IT);
+ 196  006d 4b40          	push	#64
+ 197  006f 4b04          	push	#4
+ 198  0071 ae500f        	ldw	x,#20495
+ 199  0074 cd0000        	call	_GPIO_Init
+ 201  0077 85            	popw	x
+ 202                     ; 41 	GPIO_Init(Relay_Port, Relay_Pin, GPIO_MODE_OUT_PP_LOW_FAST);
+ 204  0078 4be0          	push	#224
+ 205  007a 4b08          	push	#8
+ 206  007c ae500a        	ldw	x,#20490
+ 207  007f cd0000        	call	_GPIO_Init
+ 209  0082 85            	popw	x
+ 210                     ; 42 }
+ 213  0083 81            	ret
+ 237                     ; 44 void flash_setup(void)
+ 237                     ; 45 {
+ 238                     	switch	.text
+ 239  0084               _flash_setup:
+ 243                     ; 46 	FLASH_DeInit();
+ 245  0084 cd0000        	call	_FLASH_DeInit
+ 247                     ; 47 }
+ 250  0087 81            	ret
+ 303                     ; 49 void delay_ms (int ms) //Function Definition 
+ 303                     ; 50 {
+ 304                     	switch	.text
+ 305  0088               _delay_ms:
+ 307  0088 89            	pushw	x
+ 308  0089 5204          	subw	sp,#4
+ 309       00000004      OFST:	set	4
+ 312                     ; 51 	int i =0 ;
+ 314                     ; 52 	int j=0;
+ 316                     ; 53 	for (i=0; i<=ms; i++)
+ 318  008b 5f            	clrw	x
+ 319  008c 1f01          	ldw	(OFST-3,sp),x
+ 322  008e 201a          	jra	L101
+ 323  0090               L57:
+ 324                     ; 55 		for (j=0; j<120; j++) // Nop = Fosc/4
+ 326  0090 5f            	clrw	x
+ 327  0091 1f03          	ldw	(OFST-1,sp),x
+ 329  0093               L501:
+ 330                     ; 56 		_asm("nop"); //Perform no operation //assembly code <span style="white-space:pre"> </span>
+ 333  0093 9d            nop
+ 335                     ; 55 		for (j=0; j<120; j++) // Nop = Fosc/4
+ 337  0094 1e03          	ldw	x,(OFST-1,sp)
+ 338  0096 1c0001        	addw	x,#1
+ 339  0099 1f03          	ldw	(OFST-1,sp),x
+ 343  009b 9c            	rvf
+ 344  009c 1e03          	ldw	x,(OFST-1,sp)
+ 345  009e a30078        	cpw	x,#120
+ 346  00a1 2ff0          	jrslt	L501
+ 347                     ; 53 	for (i=0; i<=ms; i++)
+ 349  00a3 1e01          	ldw	x,(OFST-3,sp)
+ 350  00a5 1c0001        	addw	x,#1
+ 351  00a8 1f01          	ldw	(OFST-3,sp),x
+ 353  00aa               L101:
+ 356  00aa 9c            	rvf
+ 357  00ab 1e01          	ldw	x,(OFST-3,sp)
+ 358  00ad 1305          	cpw	x,(OFST+1,sp)
+ 359  00af 2ddf          	jrsle	L57
+ 360                     ; 58 }
+ 363  00b1 5b06          	addw	sp,#6
+ 364  00b3 81            	ret
+ 425                     ; 60 void write_flash(bool value){
+ 426                     	switch	.text
+ 427  00b4               _write_flash:
+ 429  00b4 88            	push	a
+ 430       00000000      OFST:	set	0
+ 433                     ; 63 	FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
+ 435  00b5 4f            	clr	a
+ 436  00b6 cd0000        	call	_FLASH_SetProgrammingTime
+ 438                     ; 64 	FLASH_Unlock(FLASH_MEMTYPE_DATA);
+ 440  00b9 a6f7          	ld	a,#247
+ 441  00bb cd0000        	call	_FLASH_Unlock
+ 443                     ; 65 	FLASH_EraseByte(0x4000);
+ 445  00be ae4000        	ldw	x,#16384
+ 446  00c1 89            	pushw	x
+ 447  00c2 ae0000        	ldw	x,#0
+ 448  00c5 89            	pushw	x
+ 449  00c6 cd0000        	call	_FLASH_EraseByte
+ 451  00c9 5b04          	addw	sp,#4
+ 452                     ; 66 	delay_ms(20);
+ 454  00cb ae0014        	ldw	x,#20
+ 455  00ce adb8          	call	_delay_ms
+ 457                     ; 67 	FLASH_ProgramByte(0x4000, value);
+ 459  00d0 7b01          	ld	a,(OFST+1,sp)
+ 460  00d2 88            	push	a
+ 461  00d3 ae4000        	ldw	x,#16384
+ 462  00d6 89            	pushw	x
+ 463  00d7 ae0000        	ldw	x,#0
+ 464  00da 89            	pushw	x
+ 465  00db cd0000        	call	_FLASH_ProgramByte
+ 467  00de 5b05          	addw	sp,#5
+ 468                     ; 68 	delay_ms(20);
+ 470  00e0 ae0014        	ldw	x,#20
+ 471  00e3 ada3          	call	_delay_ms
+ 473                     ; 69 	FLASH_Lock(FLASH_MEMTYPE_DATA);
+ 475  00e5 a6f7          	ld	a,#247
+ 476  00e7 cd0000        	call	_FLASH_Lock
+ 478                     ; 70 }
+ 481  00ea 84            	pop	a
+ 482  00eb 81            	ret
+ 515                     ; 72 void main()
+ 515                     ; 73 {
+ 516                     	switch	.text
+ 517  00ec               _main:
+ 521                     ; 74 	clock_setup();
+ 523  00ec cd0000        	call	_clock_setup
+ 525                     ; 75 	gpio_setup();
+ 527  00ef cd0061        	call	_gpio_setup
+ 529                     ; 76 	flash_setup();
+ 531  00f2 ad90          	call	_flash_setup
+ 533                     ; 78 	state = (bool) FLASH_ReadByte(0x4000);
+ 535  00f4 ae4000        	ldw	x,#16384
+ 536  00f7 89            	pushw	x
+ 537  00f8 ae0000        	ldw	x,#0
+ 538  00fb 89            	pushw	x
+ 539  00fc cd0000        	call	_FLASH_ReadByte
+ 541  00ff 5b04          	addw	sp,#4
+ 542  0101 b700          	ld	_state,a
+ 543                     ; 79 	delay_ms(20);
+ 545  0103 ae0014        	ldw	x,#20
+ 546  0106 ad80          	call	_delay_ms
+ 548                     ; 81 	if(state == TRUE){
+ 550  0108 b600          	ld	a,_state
+ 551  010a a101          	cp	a,#1
+ 552  010c 260b          	jrne	L151
+ 553                     ; 82 		GPIO_WriteHigh(Relay_Port, Relay_Pin);
+ 555  010e 4b08          	push	#8
+ 556  0110 ae500a        	ldw	x,#20490
+ 557  0113 cd0000        	call	_GPIO_WriteHigh
+ 559  0116 84            	pop	a
+ 561  0117 2009          	jra	L351
+ 562  0119               L151:
+ 563                     ; 85 		GPIO_WriteLow(Relay_Port, Relay_Pin);
+ 565  0119 4b08          	push	#8
+ 566  011b ae500a        	ldw	x,#20490
+ 567  011e cd0000        	call	_GPIO_WriteLow
+ 569  0121 84            	pop	a
+ 570  0122               L351:
+ 571                     ; 88 	delay_ms(2000);
+ 573  0122 ae07d0        	ldw	x,#2000
+ 574  0125 cd0088        	call	_delay_ms
+ 576  0128               L551:
+ 577                     ; 93 		if(GPIO_ReadInputPin(Button_Port, Button_Pin) == FALSE){
+ 579  0128 4b04          	push	#4
+ 580  012a ae500f        	ldw	x,#20495
+ 581  012d cd0000        	call	_GPIO_ReadInputPin
+ 583  0130 5b01          	addw	sp,#1
+ 584  0132 4d            	tnz	a
+ 585  0133 26f3          	jrne	L551
+ 587  0135               L561:
+ 588                     ; 95 			while(GPIO_ReadInputPin(Button_Port, Button_Pin) == FALSE);
+ 590  0135 4b04          	push	#4
+ 591  0137 ae500f        	ldw	x,#20495
+ 592  013a cd0000        	call	_GPIO_ReadInputPin
+ 594  013d 5b01          	addw	sp,#1
+ 595  013f 4d            	tnz	a
+ 596  0140 27f3          	jreq	L561
+ 597                     ; 97 			if(state == TRUE){
+ 599  0142 b600          	ld	a,_state
+ 600  0144 a101          	cp	a,#1
+ 601  0146 260d          	jrne	L171
+ 602                     ; 98 				GPIO_WriteLow(Relay_Port, Relay_Pin);
+ 604  0148 4b08          	push	#8
+ 605  014a ae500a        	ldw	x,#20490
+ 606  014d cd0000        	call	_GPIO_WriteLow
+ 608  0150 84            	pop	a
+ 609                     ; 99 				state = FALSE;
+ 611  0151 3f00          	clr	_state
+ 613  0153 200d          	jra	L371
+ 614  0155               L171:
+ 615                     ; 103 				GPIO_WriteHigh(Relay_Port, Relay_Pin);
+ 617  0155 4b08          	push	#8
+ 618  0157 ae500a        	ldw	x,#20490
+ 619  015a cd0000        	call	_GPIO_WriteHigh
+ 621  015d 84            	pop	a
+ 622                     ; 104 				state = TRUE;
+ 624  015e 35010000      	mov	_state,#1
+ 625  0162               L371:
+ 626                     ; 107 			write_flash(state);
+ 628  0162 b600          	ld	a,_state
+ 629  0164 cd00b4        	call	_write_flash
+ 631                     ; 108 			delay_ms(3000);
+ 633  0167 ae0bb8        	ldw	x,#3000
+ 634  016a cd0088        	call	_delay_ms
+ 636  016d 20b9          	jra	L551
+ 661                     	xdef	_main
+ 662                     	xdef	_write_flash
+ 663                     	xdef	_delay_ms
+ 664                     	xdef	_flash_setup
+ 665                     	xdef	_gpio_setup
+ 666                     	switch	.ubsct
+ 667  0000               _state:
+ 668  0000 00            	ds.b	1
+ 669                     	xdef	_state
+ 670                     	xdef	_clock_setup
+ 671                     	xref	_GPIO_ReadInputPin
+ 672                     	xref	_GPIO_WriteLow
+ 673                     	xref	_GPIO_WriteHigh
+ 674                     	xref	_GPIO_Init
+ 675                     	xref	_GPIO_DeInit
+ 676                     	xref	_FLASH_SetProgrammingTime
+ 677                     	xref	_FLASH_ReadByte
+ 678                     	xref	_FLASH_ProgramByte
+ 679                     	xref	_FLASH_EraseByte
+ 680                     	xref	_FLASH_DeInit
+ 681                     	xref	_FLASH_Lock
+ 682                     	xref	_FLASH_Unlock
+ 683                     	xref	_CLK_GetFlagStatus
+ 684                     	xref	_CLK_SYSCLKConfig
+ 685                     	xref	_CLK_HSIPrescalerConfig
+ 686                     	xref	_CLK_ClockSwitchConfig
+ 687                     	xref	_CLK_PeripheralClockConfig
+ 688                     	xref	_CLK_ClockSwitchCmd
+ 689                     	xref	_CLK_LSICmd
+ 690                     	xref	_CLK_HSICmd
+ 691                     	xref	_CLK_HSECmd
+ 692                     	xref	_CLK_DeInit
+ 712                     	end
